@@ -8,7 +8,6 @@ import org.springframework.http.MediaType;
 import org.springframework.stereotype.Service;
 import org.springframework.util.LinkedMultiValueMap;
 import org.springframework.util.MultiValueMap;
-import org.springframework.util.ObjectUtils;
 import org.springframework.web.client.RestTemplate;
 import org.springframework.web.multipart.MultipartFile;
 
@@ -47,7 +46,7 @@ public class SendLineNotifyService {
         return callLineNotify(map);
     }
 
-    public LinkedHashMap<String, Object> sendLineNotifyImage(String msg, MultipartFile file)  {
+    public LinkedHashMap<String, Object> sendLineNotifyImage(String msg, MultipartFile file) {
         MultiValueMap<String, Object> map = new LinkedMultiValueMap<>();
         map.add("message", msg);
         map.add("imageFile", file.getResource());

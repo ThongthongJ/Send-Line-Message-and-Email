@@ -17,4 +17,12 @@ spring:
 line:
   notify:
     url: https://notify-api.line.me/api/notify
-    token: lX9tdm3PTocQSmRDNxN6YDPxeTEnpR9wUWRYiFRsq9f
+    token: lX9tdm3PTocQSmRDNxN6YDPxeTEnpR9wUWRYiFRsq9f #one token ref to one chat room
+  bot:
+    #channel-token ref to your bot
+    channel-token: SCxp+3KyYCaNyt02b1rbtKgX3lsiO17QKW2+XzIJukVjtqu5s56/uBI+TcN4QsiYlkVvn0MLJYMiBjIaksbxmv1lCObQgLFifVt+aGLbvejF32vxKLxFuEmsAQ0NJbYe5HW1K1g21A+l232SPjBYDwdB04t89/1O/w1cDnyilFU=
+    channel-secret: 1b3790cdb06a575193876b63ad98a788
+    handler:
+      path: /callback
+  message:
+    url: https://api.line.me/v2/bot/message/push

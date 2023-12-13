@@ -1,8 +1,11 @@
 package com.demo.sendemaillinedemo.controller;
 
+import com.demo.sendemaillinedemo.model.request.BotMessageRequest;
+import com.demo.sendemaillinedemo.service.LineChatBotService;
 import com.demo.sendemaillinedemo.service.SendLineNotifyService;
 import io.micrometer.common.util.StringUtils;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
@@ -12,11 +15,11 @@ import java.util.LinkedHashMap;
 @RestController
 @RequestMapping("line")
 public class LineController {
-    private final SendLineNotifyService sendLineNotifyService;
+    @Autowired
+    private SendLineNotifyService sendLineNotifyService;
+    @Autowired
+    private LineChatBotService lineChatBotService;
 
-    public LineController(SendLineNotifyService sendLineNotifyService) {
-        this.sendLineNotifyService = sendLineNotifyService;
-    }
 
     @GetMapping("/sendMessages")
     public LinkedHashMap<String, Object> sendLineNotifyMessages(@RequestParam(value = "msg", required = true) String msg) {
@@ -46,4 +49,20 @@ public class LineController {
             @RequestParam("file") MultipartFile file) {
         return sendLineNotifyService.sendLineNotifyImage(msg, file);
     }
+
+    @PostMapping("/botmessage")
+    public void lineBotMessage(@RequestBody BotMessageRequest request) {
+        lineChatBotService.sendBotMessage(request);
+    }
+
+//    @GetMapping("/chatbot")
+//    public void lineChatBOT(@RequestParam(value = "msg") String message) {
+//        TextMessageContent textMessageContent = new TextMessageContent("id", message);
+//        Source source = new UserSource("U29f2f88b8823d24af793597570bae72a");
+//        Instant timestamp = Instant.now();
+//        String replyToken = "I don't know about this Token!";
+//        MessageEvent<TextMessageContent> messageEvent = new MessageEvent<>(replyToken, source, textMessageContent, timestamp);
+//
+//        lineChatBotService.handleTextMessage(messageEvent);
+//    }
 }
