@@ -8,6 +8,7 @@ import org.springframework.http.MediaType;
 import org.springframework.stereotype.Service;
 import org.springframework.util.LinkedMultiValueMap;
 import org.springframework.util.MultiValueMap;
+import org.springframework.util.ObjectUtils;
 import org.springframework.web.client.RestTemplate;
 import org.springframework.web.multipart.MultipartFile;
 
@@ -22,12 +23,14 @@ public class SendLineNotifyService {
     private String lineNotifyToken;
 
     public LinkedHashMap<String, Object> sendLineNotifyMessages(String msg) {
+        log.info("msg :{}", msg);
         MultiValueMap<String, Object> map = new LinkedMultiValueMap<>();
         map.add("message", msg);
         return callLineNotify(map);
     }
 
-    public LinkedHashMap<String, Object> sendLineNotifySticker(String msg, int stickerPackageId, int stickerId) {
+    public LinkedHashMap<String, Object> sendLineNotifySticker(String msg, Integer stickerPackageId, Integer stickerId) {
+        log.info("msg :{}, stickerPackageId : {}, stickerId : {}", msg, stickerPackageId, stickerId);
         MultiValueMap<String, Object> map = new LinkedMultiValueMap<>();
         map.add("message", msg);
         map.add("stickerPackageId", stickerPackageId);
@@ -36,6 +39,7 @@ public class SendLineNotifyService {
     }
 
     public LinkedHashMap<String, Object> sendLineNotifyImagePath(String msg, String imagePath) {
+        log.info("msg :{}, imagePath : {}", msg, imagePath);
         MultiValueMap<String, Object> map = new LinkedMultiValueMap<>();
         map.add("message", msg);
         map.add("imageThumbnail", imagePath);
@@ -43,7 +47,7 @@ public class SendLineNotifyService {
         return callLineNotify(map);
     }
 
-    public LinkedHashMap<String, Object> sendLineNotifyImage(String msg, MultipartFile file) {
+    public LinkedHashMap<String, Object> sendLineNotifyImage(String msg, MultipartFile file)  {
         MultiValueMap<String, Object> map = new LinkedMultiValueMap<>();
         map.add("message", msg);
         map.add("imageFile", file.getResource());
@@ -55,7 +59,6 @@ public class SendLineNotifyService {
         RestTemplate restTemplate = new RestTemplate();
 
         HttpHeaders headers = new HttpHeaders();
-
         if (map.get("imageFile") != null) {
             headers.setContentType(MediaType.MULTIPART_FORM_DATA);
         } else {
