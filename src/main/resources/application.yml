@@ -1,0 +1,20 @@
+server:
+  port: 8080
+
+spring:
+  mail:
+    host: smtp.gmail.com
+    port: 587
+    username: thongthongjk@gmail.com
+    password: djbt iqjy vgdr mklt
+    properties:
+      mail:
+        smtp:
+          starttls:
+            enable: true
+          auth: true
+
+line:
+  notify:
+    url: https://notify-api.line.me/api/notify
+    token: lX9tdm3PTocQSmRDNxN6YDPxeTEnpR9wUWRYiFRsq9f
